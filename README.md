@@ -8,7 +8,7 @@ To launch the app on your computer, you can run the following code in R:
 
 ```r
 if (!require(shiny)) install.packages("shiny")
-shiny::runGitHub('forrtproject', 'fred_explorer')
+shiny::runGitHub('fred_explorer', 'forrtproject')
 ```
 
 Alternatively, you can access the current online version of the app [here](https://metaanalyses.shinyapps.io/replicationdatabase/). Either version will automatically pull the latest dataset from the OSF, so that you can always build on our most extensive evidence base.
