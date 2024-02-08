@@ -14,7 +14,7 @@ required_packages <- c(
   "shiny", "readxl", "shinycssloaders", "dplyr", "DT", "ggplot2",
   "forcats", "gridExtra", "ggpubr", "reshape", "plotly", "httr",
   "metafor", "openxlsx", "plyr", "pwr", "psychometric", "zcurve", "bslib", "stringr",
-  "rcrossref")
+  "rcrossref", "evmix", "gsl")
 
   # NB: rcrossref not needed here but listed so that it gets cited (was used to get DOIs for all original studies and some replication studies
 
@@ -25,7 +25,7 @@ lapply(required_packages, library, character.only = TRUE)
 # BASIC INFO --------------------------------------------------------------
 
 version <- "Version 0.4.5"
-date <- "08 February, 2024" # enter last update here
+date <- "09 February, 2024" # enter last update here
 forestplotheight <- "17000px" # make it so that forest plot is readable
 red_link <- "https://osf.io/z5u9b/download"
 
@@ -67,10 +67,7 @@ dataset_variables <- data.frame("Variable" = variables, "Description" = explanat
 
 
 # Open processed dataset
-# red <- read.csv("https://osf.io/2a3gb/download")
-# red <- read.csv("ReD Validation - Daten.csv", header = TRUE, dec = ",", encoding = "latin1") # .csv file
 red <- openxlsx::read.xlsx(red_link, sheet = "Data") # .xlsx file
-# red <- openxlsx::read.xlsx("C:/Users/lroesele.IVV5NET/Downloads/FReD.xlsx", sheet = "Data") # Open file from working directory (for testing)
 
 red <- red[-(1:2), ] # exclude labels and "X" column
 
