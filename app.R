@@ -14,13 +14,34 @@ required_packages <- c(
   "shiny", "readxl", "shinycssloaders", "dplyr", "DT", "ggplot2",
   "forcats", "gridExtra", "ggpubr", "reshape", "plotly", "httr",
   "metafor", "openxlsx", "plyr", "pwr", "psychometric", "zcurve", "bslib", "stringr",
-  "rcrossref", "evmix", "gsl")
+  "rcrossref")
 
-  # NB: rcrossref not needed here but listed so that it gets cited (was used to get DOIs for all original studies and some replication studies
-
+# Offer users to install missing packages or fail explicitly
 .check_req_packages(required_packages)
 
-lapply(required_packages, library, character.only = TRUE)
+# Also need plain library calls for rsconnect
+library(shiny)
+library(readxl)
+library(shinycssloaders)
+library(dplyr)
+library(DT)
+library(ggplot2)
+library(forcats)
+library(gridExtra)
+library(ggpubr)
+library(reshape)
+library(plotly)
+library(httr)
+library(metafor)
+library(openxlsx)
+library(plyr)
+library(pwr)
+library(psychometric)
+library(zcurve)
+library(bslib)
+library(stringr)
+library(rcrossref) # not needed here but listed so that it gets cited (was used to get DOIs for all original studies and some replication studies)
+
 
 # BASIC INFO --------------------------------------------------------------
 
