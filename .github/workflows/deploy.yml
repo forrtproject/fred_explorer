@@ -25,7 +25,5 @@ jobs:
           rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE, envManagementR = TRUE)
         shell: Rscript {0}
 
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
 
 
