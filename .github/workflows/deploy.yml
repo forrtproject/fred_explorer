@@ -22,7 +22,7 @@ jobs:
       - name: Install Dependencies
         run: |
           install.packages(c('shiny', 'rsconnect'))
-          rsconnect::setAccountInfo(name='lukaswallrich', token=${{secrets.TOKEN}}, secret=${{secrets.SECRET}})
+          rsconnect::setAccountInfo(name='lukaswallrich', token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})
           rsconnect::deployApp(appName = 'fred_explorer', appDir = '.')
         shell: Rscript {0}
 
