@@ -20,6 +20,7 @@ jobs:
       - name: Deploy App
         run: |
           install.packages(c('shiny', 'rsconnect'))
+          sapply(rsconnect::appDependencies()$Package, \(x) if(!require(x)) install.packages(x))
           rsconnect::setAccountInfo(name='lukaswallrich', token='${{secrets.SHINYAPPS_TOKEN}}', secret='${{secrets.SHINYAPPS_SECRET}}')
           rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE, envManagementR = TRUE)
         shell: Rscript {0}
