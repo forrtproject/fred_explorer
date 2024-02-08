@@ -16,11 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: deploy
-        uses: qwert666/shinyapps-actions@main
-        env:
-            SHINY_USERNAME: 'lukaswallrich'
-            SHINY_TOKEN: ${{ secrets.SHINYAPP_TOKEN }}
-            SHINY_SECRET: ${{ secrets.SHINYAPP_SECRET }}
-            APP_NAME: 'fred_explorer'
-            APP_DIR: ''
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install Dependencies
+        run: |
+          R |
+            -e "install.packages(c('shiny', 'rsconnect'))"
+            -e "rsconnect::setAccountInfo(name='lukaswallrich', token=${{secrets.TOKEN}}, secret=${{secrets.SECRET}})"
+            -e "rsconnect::deployApp(appName = 'fred_explorer', appDir = '.')"
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+
+
