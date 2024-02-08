@@ -10,12 +10,17 @@ on:
 jobs:
   deploy:
     name: Deploy to shinyapps
+
     # allow skipping deployment for commits containing '[WIP]' or '[no-deploy]' in the commit message
     if: "!contains(github.event.head_commit.message, '[WIP]') && !contains(github.event.head_commit.message, '[no-deploy]')"
-    uses: qwert666/shinyapps-actions@main
-    env:
-        SHINY_USERNAME: 'lukaswallrich'
-        SHINY_TOKEN: ${{ secrets.SHINYAPP_TOKEN }}
-        SHINY_SECRET: ${{ secrets.SHINYAPP_SECRET }}
-        APP_NAME: 'fred_explorer'
-        APP_DIR: '.'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: deploy
+        uses: qwert666/shinyapps-actions@main
+        env:
+            SHINY_USERNAME: 'lukaswallrich'
+            SHINY_TOKEN: ${{ secrets.SHINYAPP_TOKEN }}
+            SHINY_SECRET: ${{ secrets.SHINYAPP_SECRET }}
+            APP_NAME: 'fred_explorer'
+            APP_DIR: ''
