@@ -24,265 +24,10 @@ lapply(required_packages, library, character.only = TRUE)
 
 # BASIC INFO --------------------------------------------------------------
 
-version <- "Version 0.4.22"
-date <- "05 January, 2024" # enter last update here
+version <- "Version 0.4.5"
+date <- "08 February, 2024" # enter last update here
 forestplotheight <- "17000px" # make it so that forest plot is readable
 red_link <- "https://osf.io/z5u9b/download"
-
-## Changelog ---------------------------------------------------------------
-changelog <- HTML(paste("<h3><b>Changelog</b></h3><h5>"
-                        , "<i>This is a list of changes for the ReD-website and the dataset.</i>"
-
-                        # TEMPLATE FOR NEW VERSIONS
-                        # , "</br></br><b>dd.mm.yyyy</b>"
-                        # , "</br><i>App version: Version 0.0.xx.xx</i>"
-                        # , "</br><i>Dataset name: opaq_xxx.csv</i>"
-                        # , "</br>- ..."
-
-                        , "</br></br><b>31.01.2024</b>"
-                        , "</br><i>App version: Version 0.5.0</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added information on funding."
-                        , "</br>- Added FORRT to the name."
-
-                        , "</br></br><b>05.01.2024</b>"
-                        , "</br><i>App version: Version 0.4.22</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Included FORRT entries and Additional Studies (i.e., studies with effect sizes not yet coded) in the correlates and reference checker tabs."
-                        , "</br>- v 0.4.21: Reference checker is now also specifying the number of publications besides the number of replication findings."
-                        , "</br>- v 0.4.22: Added the option to include uncoded entries in the replicability tracker."
-                        , "</br>- v 0.4.22: Removed 'corrected ERR' from z-curve."
-
-                        , "</br></br><b>06.12.2023</b>"
-                        , "</br><i>App version: Version 0.4.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Fixed filtering function via datatable in the tab Replicability Tracker. The reversed order of the table led to errors."
-                        , "</br>- Added dynamic pointsize to the scatterplot in the Replicability Tracker."
-
-                        , "</br></br><b>24.11.2023</b>"
-                        , "</br><i>App version: Version 0.4.0</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added FORRT-logos."
-                        , "</br>- Overhauled References Checker to work via DOIs as DOIs have been assigned to a large proportion of the database."
-                        , "</br>- Users can now filter data in the replication tracker via the Datatable. Selection of rows is no longer possible in the table."
-                        # , "</br>- Added corrected ERR to Z-Curve (https://osf.io/preprints/metaarxiv/ewb2t)."
-
-                        , "</br></br><b>23.11.2023</b>"
-                        , "</br><i>App version: Version 0.0.3.21</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Increased forest plot height."
-                        , "</br>- Moved downloadfunctions from Summarizer and removed the Summarizer tab."
-
-
-                        , "</br></br><b>26.10.2023</b>"
-                        , "</br><i>App version: Version 0.0.3.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added new variables (discipline and effect)"
-                        , "</br>- Added >1K unvalidated entries from FORRT. These are already included in the downloadable dataset and the correlates (highlighted as 'not yet coded')"
-
-                        , "</br></br><b>17.10.2023</b>"
-                        , "</br><i>App version: Version 0.3.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added first version of a dynamic 'Summarizer'"
-
-
-                        , "</br></br><b>16.10.2023</b>"
-                        , "</br><i>App version: Version 0.3.0</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Corrected text about the number of independent replication findings (used a deprecated ID variable and is now using the reference)."
-                        , "</br>- Changed the order of the table under Replicability Tracker so that the newest entries are displayed on top"
-                        , "</br>- Changed the color of mixed results in the Correlates tab to yellowish instead of blue so that inconclusive and mixed are different colors."
-                        , "</br>- Removed faulty rows from the aggregated data used for the Correlates tab (e.g., where a journal was named 'no signal')"
-                        , "</br>- Formatted references and added a section for publications using ReD"
-
-                        , "</br></br><b>02.10.2023</b>"
-                        , "</br><i>App version: Version 0.2.91</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Changed mail adress."
-
-
-                        , "</br></br><b>19.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.9</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added function to check which elements from a list of references are included among the original studies."
-                        , "</br>- Updated Replicability Tracker info text."
-
-                        , "</br></br><b>18.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.8</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Corrected info text in the correlates tab."
-                        , "</br>- Increased height of the Replicability by Journal plot."
-
-                        , "</br></br><b>17.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.7</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Updated contact info."
-                        , "</br>- Updated replication tracker text to include number of original studies."
-
-                        , "</br></br><b>13.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.6</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Added replication power to moderator analyses."
-
-                        , "</br></br><b>12.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.5</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Updated moderator analyses (alpha)."
-
-                        , "</br></br><b>11.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.4</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Updated FAQ."
-
-                        , "</br></br><b>06.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.3</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Updated contact info."
-                        , "</br>- Updated FAQ."
-
-                        , "</br></br><b>05.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.2</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Changed \'Effect Sizes Comparison\' tab to \'Study Overview\' tab to be centered around original studies' references instead of descriptions. Filtering for this tab is currently disabled."
-                        , "</br>- Changed correlates of replicability to be centered around original studies instead of replication findings to prevent \'overweighing\' through studies that were replicated a large number of times (e.g., RRRs)."
-
-                        , "</br></br><b>03.04.2023</b>"
-                        , "</br><i>App version: Version 0.2.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/z5u9b)</i>"
-                        , "</br>- Updated FAQs (data structure)."
-                        , "</br>- Added preliminary moderator analyses."
-                        , "</br>- Updated file link."
-                        , "</br>- Corrected number-parsing for correlates of replicability (decade)."
-
-                        , "</br></br><b>30.03.2023</b>"
-                        , "</br><i>App version: Version 0.1.2</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/dysqm)</i>"
-                        , "</br>- Updated FAQs."
-
-                        , "</br></br><b>28.03.2023</b>"
-                        , "</br><i>App version: Version 0.1.2</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/dysqm)</i>"
-                        , "</br>- Excluded direct downloading of the submission portal."
-                        , "</br>- Added some flexibility to computing effect sizes."
-                        , "</br>- Changed appearance of selected points in the scatterplot."
-                        , "</br>- Added observed replication rate to z-curve."
-
-                        , "</br></br><b>21.03.2023</b>"
-                        , "</br><i>App version: Version 0.1.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/dysqm)</i>"
-                        , "</br>- Minor changes to wording"
-                        , "</br>- Corrected error that led to id-variable being dropped"
-                        , "</br>- Added FAQ on overlap with FORRT's R&R"
-
-                        , "</br>- Reworked info text and added link to the submission portal"
-                        , "</br></br><b>20.03.2023</b>"
-                        , "</br><i>App version: Version 0.1.1</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/dysqm)</i>"
-                        , "</br>- Minor changes to Google Spreadsheet Dataset"
-                        , "</br>- Reworked info text and added link to the submission portal"
-                        , "</br>- Modified main dataset to include new variables from submission portal"
-                        , "</br>- Deleted subject variable that was only available for a very small subset of entries"
-                        , "</br>- Authors and contributions are now automatically created from the Authors tab in the Google Spreadsheet"
-
-                        , "</br></br><b>15.03.2023</b>"
-                        , "</br><i>App version: Version 0.1.0</i>"
-                        , "</br><i>Dataset name: Red.xlsx (from osf.io/dysqm)</i>"
-                        , "</br>- Base dataset has been changed to a version with additional (optional) variables."
-                        , "</br>- A large proportion fo the base dataset has been validated."
-                        , "</br>- Added interpretation of replication result as suggested by Lebel et al., 2018."
-
-                        , "</br></br><b>10.03.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.5</i>"
-                        , "</br><i>Dataset name: Red.csv (from osf.io/2a3gb)</i>"
-                        , "</br>- Updated logo."
-                        , "</br>- Restricted inclusion of submission portal entries to prevent App from braking."
-                        , "</br>- Added FAQ."
-
-                        , "</br></br><b>07.03.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.4</i>"
-                        , "</br><i>Dataset name: Red.csv (from osf.io/2a3gb)</i>"
-                        , "</br>- Data from the submission form will now be automatically included."
-                        , "</br>- Data from the submission form will by default be highlighted as not validated."
-                        , "</br>- Updated references."
-                        , "</br>- Updated design."
-
-                        , "</br></br><b>06.03.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.3</i>"
-                        , "</br><i>Dataset name: Red.csv (from osf.io/2a3gb)</i>"
-                        , "</br>- Two new co-authors have been added."
-                        , "</br>- A newly created submission portal has been linked and info texts have been updated."
-
-                        , "</br></br><b>24.01.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.2</i>"
-                        , "</br><i>Dataset name: Red.csv (from osf.io/2a3gb)</i>"
-                        , "</br>- Added Z-Curve analysis."
-                        , "</br>- Polished the scatter- and barplots."
-                        , "</br>- Added descriptions and explanations to some of the plots."
-                        , "</br>- Added a References tab with articles referenced in the descriptions and a list of used R-packages."
-                        , "</br>- Fixed a bug in the barplot that led to incorrect percentages."
-
-
-                        , "</br></br><b>19.01.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.1</i>"
-                        , "</br><i>Dataset name: Red_220627.csv</i>"
-                        , "</br>- Added option to filter by replication power."
-                        , "</br>- Data processing has been moved to an individual R-script. The App is now downloading the dataset directly from the OSF repository."
-
-                        , "</br></br><b>19.01.2023</b>"
-                        , "</br><i>App version: Version 0.0.2.0</i>"
-                        , "</br><i>Dataset name: Red_220627.csv</i>"
-                        , "</br>- Fixed minor error."
-
-                        , "</br></br><b>16.08.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.9</i>"
-                        , "</br><i>Dataset name: Red_220627.csv</i>"
-                        , "</br>- Fixed minor error."
-
-                        , "</br></br><b>27.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.8</i>"
-                        , "</br><i>Dataset name: Red_220627.csv</i>"
-                        , "</br>- Updated authors."
-                        , "</br>- Updated data."
-
-                        , "</br></br><b>22.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.8</i>"
-                        , "</br><i>Dataset name: ReD_220622.csv</i>"
-                        , "</br>- Added option to filter by source."
-                        , "</br>- Changed size of plots."
-                        , "</br>- Added studies from individual submissions."
-
-                        , "</br></br><b>21.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.7</i>"
-                        , "</br><i>Dataset name: ReD_220621.csv</i>"
-                        , "</br>- Fixed error in the blobbogram (missing error bars for original effect sizes."
-                        , "</br>- Updated data (work in progress)."
-                        , "</br>- Corrected authors."
-
-                        , "</br></br><b>17.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.7</i>"
-                        , "</br><i>Dataset name: ReD_220617.csv</i>"
-                        , "</br>- Updated data (work in progress)."
-                        , "</br>- Removed studies that did not report whether the replication was successful or not."
-                        , "</br>- Updated overview plot visuals."
-                        , "</br>- Updated blobbogram to highlight selected (previously: remove unselected)."
-                        , "</br>- Corrected author contributions."
-
-                        , "</br></br><b>14.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.6</i>"
-                        , "</br><i>Dataset name: ReD_220614.csv</i>"
-                        , "</br>- Updated data (work in progress)."
-                        , "</br>- Fixed forest plot bugs."
-                        , "</br>- Added data submission template."
-                        , "</br>- Closeness scorer."
-
-                        , "</br></br><b>01.06.2022</b>"
-                        , "</br><i>App version: Version 0.0.1.5</i>"
-                        , "</br><i>Dataset name: ReD_220601.csv</i>"
-                        , "</br>- First App draft uploaded (mock data)."
-
-                        , "</br></br>"
-                        , sep = ""))
-
 
 
 ### Variable explanations
@@ -311,6 +56,7 @@ explanations <- c("Short description of the main phenomenon/hypothesis of the re
                   , "Full APA7 reference to the report describing the replication study (if possible; including study number if necessary)"
                   , "Tags to make the study easily findable"
                   , "Any further notes")
+
 dataset_variables <- data.frame("Variable" = variables, "Description" = explanations)
 
 
@@ -324,8 +70,7 @@ dataset_variables <- data.frame("Variable" = variables, "Description" = explanat
 # red <- read.csv("https://osf.io/2a3gb/download")
 # red <- read.csv("ReD Validation - Daten.csv", header = TRUE, dec = ",", encoding = "latin1") # .csv file
 red <- openxlsx::read.xlsx(red_link, sheet = "Data") # .xlsx file
-
-# red <- openxlsx::read.xlsx("Red.xlsx", sheet = "Data") # Open file from working directory (for testing)
+# red <- openxlsx::read.xlsx("C:/Users/lroesele.IVV5NET/Downloads/FReD.xlsx", sheet = "Data") # Open file from working directory (for testing)
 
 red <- red[-(1:2), ] # exclude labels and "X" column
 
@@ -447,7 +192,7 @@ numeric_variables <- c("n_original"
                        # , "es_rep"
                        , "es_orig_RRR"
                        , "es_rep_RRR"
-                       )
+)
 
 red[, numeric_variables] <- sapply(red[ , numeric_variables], as.numeric)
 
@@ -557,7 +302,7 @@ red$significant_original <-    as.factor(ifelse(red$ci.lower_original > 0 | red$
 red$significant_replication <- as.factor(ifelse(red$ci.lower_replication > 0 | red$ci.upper_replication < 0, "1", "0"))
 
 for (i in 1:nrow(red)) {
-  if (!is.na(red[i, "es_replication"])) {
+  if ( !is.na(red[i, "es_original"]) & !is.na(red[i, "n_replication"]) ) {
     red[i, "power"] <- pwr::pwr.r.test(n = red[i, "n_replication"], r = red[i, "es_original"]
                                        , power = NULL, alternative = "greater")$power
   }
@@ -632,236 +377,7 @@ red$ref_original <- gsub("(.{70,}?)\\s", "\\1\n", red$ref_original) # line break
 
 # WEBSITE TEXT --------------------------------------------------------------
 
-# Format contributor names
-contributors <- openxlsx::read.xlsx(red_link, sheet = "Contributors")
-contributors$first <- substr(contributors$contributor_firstname, 1, 1)
-contributors$apa <- paste(contributors$contributor_lastname, ", ", contributors$first, ".", sep = "")
-contributors$name <- paste(contributors$contributor_lastname, ", ", contributors$first, ".", sep = "")
-c_names <- paste(contributors$apa, collapse = ", ")
-
-# Contributions
-
-
-about <- HTML(paste("<h4><b>FORRT Replication Database ", version, "</b></h3>"
-                    , "<br/><b>Last Update:</b> ", date
-
-                    ### Core team
-                    , "<br/><b>Citation: </b>"
-                    , c_names
-                    , " (2024). <i>ReD: FORRT Replication Database, ", version, "</i>. <a href=https://dx.doi.org/10.17605/OSF.IO/9r62x>https://dx.doi.org/10.17605/OSF.IO/9r62x</a>"
-                    , "<br/><b>Data and Materials:</b> <a href=https://osf.io/9r62x/>https://osf.io/9r62x/</a>"
-                    , "<br/><b>Contribute:</b> Please send an e-mail to lukas.roeseler(at)uni-muenster.de"
-                    , "<br/><b>License:</b> CC-By Attribution 4.0 International"
-                    , "<br/><b>Acknowledgements:</b> We thank all researchers who have invested resources in conducting replication research, researchers who have submitted their replication studies, and researchers who used the Replication Recipe Post-Completion template to register their results. FORRT Replication Database is supported through the University of Bamberg's Interne Forschungsförderung, by the University of Münster, and by the Nederlandse Organisatie voor Wetenschappelijk's (NWO) Open Science Fund."
-                    , "<br/><b>Important note:</b> This is work in progress. Please beware that there might be bugs or errors in the dataset."
-                    , sep = ""))
-
-# supporting_institutions <-  HTML("</h3>ReD is supported by the University of Bamberg."
-#                                  , "ReD is cooperating with FORRT."
-#                                        , sep = ""))
-
-info <- HTML(paste("<h3>Welcome to the FORRT Replication Database!"
-                   , "<h4><br/><br/><b>What is ReD?</b><br/> <i>Science appears to be the human enterprise that is most systematic in its attempt to eliminate error in the search for knowledge </i>(Hoyningen-Huene, 2013, p. 89).
-                   </br></br>Still, if - or how well - most of our findings replicate, is unknown. The FORRT Replication Database is a crowdsourced effort to include unpublished and published replication results to estimate and track the replicability along various fields and provide researchers with a way to assess replicability of crucial studies in a quick and transparent way. Check out the <a href=https://osf.io/f3w26>Call for Results</a> if you would like to contribute."
-                   , "<br/><br/><b>What are your benefits of joining us?</b><br/> You are very welcome to contribute data from your replication studies! In return, (apart from being rewarded by the good feeling of helping research on replicability to improve) we will list you as a co-author of the ReD (CRediT: Resources). Please use the <a href=https://www.soscisurvey.de/replicate>submission portal</a> to submit replication results.
-                        <br/><br/>Unpublished datasets as well as data from classroom experiments are also highly appreciated. Get in touch if you have any questions about the submission portal."
-                   , "<br/><br/><b>How to use this website</b><br/> Here in our ShinyApp, you can explore replicability for all or filtered entries. Click on the other tabs and filter your results on the left side.
-                        <br/><br/>In the <a href=https://osf.io/9r62x/>OSF project</a>, you can find further information and files on our project. There, you also can send us a contribution request to the project.
-                        <br/><br/>For questions or comments, please check out the FAQs on this website, or send an e-mail to lukas.roeseler(at)uni-muenster.de"
-                   , "<br/><br/>"
-                   , sep = ""))
-
-dataset_explanation <- shiny::HTML(paste("<h4><b>ReD Dataset</b>"
-                           , "<h5><br/>This is the entire FORRT Replication Database Datset. It currently contains "
-                           , nrow(red)
-                           , " findings "
-                           , "<br/><br/>"
-                           , sep = ""))
-
-dataset_headline <- HTML(paste("<h4><b>Dataset</b><h6>"
-                                  , sep = ""))
-
-variables_headline <- HTML(paste("<h4><b>Variables</b><h5>"
-                                 , sep = ""))
-
-dataset_info <- HTML(paste("<h4><b>Replication Rate</b>"
-                          , "<h5><br/>There are currently "
-                          , nrow(red)
-                          , " replication findings entered into the database. Of these, "
-                          , length(unique(red$ref_replication))
-                          , " replication findings are independent (i.e., use different samples/stem from different studies). Note that the following analyses treat all studies as independent. Apart from the table and bar chart, only studies for which sample sizes and effect sizes are available (for original study and replication) are considered here. The other can be viewed in the Dataset."
-                          , " In total, "
-                          , length(unique(red$ref_original))
-                          , " different original studies have been replicated."
-                          # , "According to the original researchers' assessments, there have been "
-                          # , sum(red$pc05 == "informative failure to replicate", na.rm = TRUE)
-                          # , " informative failures to replicate and "
-                          # , sum(red$pc05 == "success", na.rm = TRUE)
-                          # , " successes. "
-                          # , sum(red$pc05 == "inconclusive", na.rm = TRUE)
-                          # , " replications have yielded inconclusive results and "
-                          # , sum(red$pc05 == "practical failure to replicate", na.rm = TRUE)
-                          # , " were practical failures to replicate."
-                          , "<br/><br/><h6>"
-                          , sep = ""))
-
-forest_info <- HTML(paste("<h4><b>Study Overview</b>"
-                          , "<h5><br/>The currently included "
-                          , nrow(red)
-                          , " replication findings entered into the database can be allocated to "
-                          , length(unique(red$ref_original))
-                          , " independent original studies. This is an overview of these studies."
-                          , "<br/><br/><h6>"
-                          , sep = ""))
-
-packages_info <- HTML(paste("<br/><br/><br/><h4><b>R-packages used for this App</b><h5>"
-                            , sep = ""))
-
-packages_list <- HTML(paste("<br/><br/>- ", names(sessionInfo()[["otherPkgs"]]),  sep = ""))
-
-scatterplot_title <- HTML(paste("
-                                 <h4><br/><br/><b>Scatterplot of Original and Replication Effect Sizes</b><br/>"
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-scatterplot_explanation <- HTML(paste("
-                                 <h5><i>Note. </i>This plot is based on the code used for the main plot of Open Science Collaboration (2015). Here you can see for each replication study the original effect and the replication effect. Significant replication effects (p < .05) are highlighted in blue. If all studies were perfectly replicable, the dots would be on the solid grey line. If no study was replicable, the dots would be at the dashed line (= null effects). Hover over the plot to see the exact effect sizes and the study. Clicking on rows in the table above this plot will highlight the eslected studies. If there are registered replication reports (RRRs) among the selected study, you will see 'columns' of effect sizes because all studies from a RRR have the same 'original effect size' but replication effect sizes vary."
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-barplot2_title <- HTML(paste("
-                                 <h4><br/><br/><b>A More Nuanced Interpretation of Replication Effects</b><br/>"
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-barplot2_explanation <- HTML(paste("
-                                 <h5><i>Note. </i>Lebel et al. (2018) have suggested a more nuanced interpretation of replication results for cases where the original study found an effect. Whether or not the replication effect is significant, too, is indicated by signal/no-signal. Whether the replication effect is smaller, larger, or the same size is also indicated. We also included cases where the original study was not significant or no information about the original study's significance was available in grey."
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-zcurve_title <- HTML(paste("
-                                 <h4><br/><br/><b>Z-Curve Analysis (via ReD)</b><br/> "
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-zcurve_explanation <- HTML(paste("
-                                 <h5><i>Note. </i>Z-curve (Bartos & Schimmack, 2020) can be used to estimate replicability of a set of studies. Observed discovery rate refers to the proportion of significant (p < .05) studies. Expected discovery rate is the proportion of studies that you would expect to be significant if you ran perfect and high powered replications of <i>all</i> studies. Expected replicability rate is the proportion of studies that you would expect to be significant if you ran perfect and high powered replications of <i>all significant</i> studies. You can compare the discovery and replicability rates with the actual replicability presented at the top of this page. We recommend running bootstraps to get confidence intervals for z-curve's estimates but refrain from doing so as it takes much time."
-                                 , "<br/><br/>"
-                                 , sep = ""))
-
-
-
-correlates_info <- HTML(paste("
-                                 <h4><br/><br/><b>Correlates of Replicability</b><br/> "
-                               , "<h4>Has replicability increased over time? How do I know if a published finding is replicable? Are there differences betweeen research fields? Using the dataset, we can test what moderators are correlated with certain replication outcomes.</br></br><b><font color=\"#ff0000\">Please keep in mind that these analyses are preliminary for at least two reasons: They include non-validated data and some variables may not have been coded yet for a large proportion of the dataset</font></b>"
-                               , sep = ""))
-
-moderators_info <- HTML(paste("
-                                 <h4><br/><br/><b>Moderators of Replication Effect Sizes</b><br/> "
-                              , "<h4>Here you can explore the influence of several moderators on the replication effect size. </br></br><b><font color=\"#ff0000\">Please keep in mind that these analyses are preliminary for at least two reasons: They include non-validated data and some variables may not have been coded yet for a large proportion of the dataset.<br/><br/></b></font><h5>"
-                              , sep = ""))
-
-
-correlates_decade <- HTML(paste("
-                                 <h4><br/><br/><b>Replicability over time</b><br/> "
-                                 , "For the following analysis, replication findings have been aggregated for each <i>decade</i> of the original finding's publication year."
-                                 , sep = ""))
-
-correlates_journal <- HTML(paste("
-                                 <h4><br/><br/><b>Replicability by Journal</b><br/> "
-                                 , "For the following analysis, replication findings have been aggregated for each <i>journal where the original finding was published</i>. This can serve as a shortcut to comparing replicability by research area. Note that mixed findings can be a mix of many succesful and one inconclusive or failed replication or vice versa."
-                                 , sep = ""))
-
-
-
-rc_info  <- HTML(paste("
-                                 <h4><br/><br/><b>Moderators of Replication Effect Sizes</b><br/> "
-                       , "<h4>Paste your entire lists of references or DOIs here. In order to identify replication studies, there need to be DOIs. Please note that not all studies entered in ReD feature a DOI or that some papers may even have no or more than one DOI. Finally, ReD does not contain <i>all</i> replications. That means, if there are no replications listed in ReD, this does not mean that nobody has ever attempted to replicate the entered studies.<h6>"
-                       , sep = ""))
-
-
-checker_info <- HTML(paste("<h4><br/><br/><b>Replicability Checker</b><br/> "
-                           , "<br/><br/><h4>Filter the database via the table's search function and it will return a summary of the state of research regarding the searched entries at the bottom of the page."
-                           , "<h6>"
-                           , sep = ""))
-
-references_headline <- HTML(paste("<h4><br/><br/><b>References</b><br/> "
-                                 , "<br/><br/><h4>Currently, a large proportion of the replication studies stems from the CurateScience database. We added data from CORE, RPP, the OSF Registries, and individual submissions. A synthesis of ReD with FORRT's replications and reversals is coming soon. If you are aware of replications not listed here, please write us an e-mail or add them here: https://docs.google.com/spreadsheets/d/1x68oW2H_Xrdv44fIeycl4fegsmQgCa60GxeZZ_hAR90/edit?pli=1#gid=1463805480"
-                                 , sep = ""))
-
-
-
-references_list <- HTML(paste(
-                                "<br/><br/>- Curate Science Database: https://web.archive.org/web/20220128104303mp_/https://curatescience.org/app/replications"
-                              , "FORRT Replications and Reversals: https://docs.google.com/spreadsheets/d/1IY56xdDmoU9VasdE0sry2xvsGFkWPrqbKXAs1Rw-9LA/edit#gid=0"
-                              , "Bartoš, F., & Schimmack, U. (2020). Z-Curve.2.0: Estimating Replication Rates and Discovery Rates. Advance online publication. https://doi.org/10.31234/osf.io/urgtn"
-                              , "Hoyningen-Huene, P. (2013). Systematicity: The nature of science. Oxford studies in philosophy of science. Oxford Univ. Press."
-                              , "LeBel, E. P., McCarthy, R. J., Earp, B. D., Elson, M., & Vanpaemel, W. (2018). A unified framework to quantify the credibility of scientific findings. Advances in Methods and Practices in Psychological Science, 1(3), 389-402."
-                              , "Open Science Collaboration (2015). Psychology: Estimating the reproducibility of psychological science. Science (New York, N.Y.), 349(6251), aac4716. https://doi.org/10.1126/science.aac4716"
-                              ,  sep = "<br/><br/>- "))
-
-
-references_redpublications <- HTML(paste("<br/><br/><br/><h4><b>Publications Using ReD</b><h5>"
-                           , sep = ""))
-
-references_list_redpublications <- HTML(paste(
-                               "Röseler, L. (2023). Predicting Replication Rates with Z-Curve: A Brief Exploratory Validation Study Using the FORRT Replication Database. Retrieved from https://osf.io/t7nwk"
-                              ,  sep = "<br/><br/>- "))
-
-
-packages_headline <- HTML(paste("<br/><br/><br/><h4><b>R-packages used for this App</b><h5>"
-                           , sep = ""))
-
-packages_list <- HTML(paste("<br/><br/>- ", names(sessionInfo()[["otherPkgs"]]),  sep = ""))
-
-
-faqs <- HTML(paste("<h3>Frequently Asked Questions"
-                   , "<h6><i>Hint: Use Ctrl+F to search the FAQs.</i>"
-                   , "<h4><br/><br/><b>Q: Can I submit studies that I did not conduct myself?</b><br/>
-                   A: Yes, you can! Entering other researchers' replication result will make you eligible for co-authorship on the App."
-                   , "<h4><br/><br/><b>Q: Does the replication study that I want to submit need to be peer-reviewed?</b><br/>
-                   A: No! Publishing replication studies can be met with quite some resistence, in our experience. Therefore, we want to keep the inclusion threshold as low as possible."
-                   , "<h4><br/><br/><b>Q: In what way does the study need to be public or published?</b><br/>
-                   A: There needs to be a way to verify that an entered study has indeed been executed."
-                   , "<h4><br/><br/><b>Q: I know about replication studies that you have not added yet but I do not have time to add them myself. Is there a way to have you note these studies anyway?</b><br/>
-                   A: Yes, please add them to the list in our <a href=https://docs.google.com/spreadsheets/d/1x68oW2H_Xrdv44fIeycl4fegsmQgCa60GxeZZ_hAR90/edit?pli=1#gid=305460056>ReD-spreadsheet</a>! "
-                   , "<h4><br/><br/><b>Q: What about large-scale replication projects such as Many Labs 2, those by Camerer et al., etc.?</b><br/>
-                   A: These are absolutely on our radar and we will add them as soon as possible. Please note that we are currently working with strongly limited resources. Get in touch if you want to support the project!"
-                   , "<h4><br/><br/><b>Q: Somebody entered my replication study. I want to become a contributor, is this still possible?</b><br/>
-                   A: The basis of the replication database are other databases that have existed for years, so this is the case for many studies. Still, there are houndreds of replications that are still missing. Contact us if you want to contribute replication study results!"
-                   , "<h4><br/><br/><b>Q: How do you make sure that nobody creates mock entries?</b><br/>
-                   A: Each entry will be validated. To do this, there needs to be a published paper, a pre-print, an OSF-project, or some kind of findable object that includes the results that were entered."
-                   , "<h4><br/><br/><b>Q: What is the definition of a replication study?</b><br/>
-                   A: This one is tough: In a nutshell, current definitions allow calling almost all studies replications. With respect to the dataset: For a study to be considered a replication, the hypothesis that is being investigated needs to have been investigated in another study in a way that is as close as possible to your way. If you are unsure about whether there is sufficient overlap between an original study and the replication study, please let us know in the notes or get in touch with us."
-                   , "<h4><br/><br/><b>Q: Is the database representative?</b><br/>
-                   A: No. We strive to include every replication of a social scientific study in the database. If we succeed, the database will be comprehensive but researchers do not select target studies for replication on the basis of representativeness - they rather choose central and not yet replicated findings."
-                   , "<h4><br/><br/><b>Q: How do I know the replication study entered here did not succeed due to methodological shortcomings?</b><br/>
-                   A: You don't. We encourage you to check out individual entries and their methodologies."
-                   , "<h4><br/><br/><b>Q: What do I need to do to become a contributor on the website?</b><br/>
-                   A: You need to enter results from at least one replication finding into the submission form or the spreadsheet, enter your e-mail so that we can contact you, and be available for potential questions during our validation of your entry. Sending us a reference of a replication of yours does not suffice."
-                   , "<h4><br/><br/><b>Q: Do failed replication studies mean that original findings are untrustworthy?</b><br/>
-                   A: No. Besides scientific misconduct or questionable research practices, replication attempts can fail due to practical reasons, due to unknown background factors, due to changes in (the perception of) concepts, and many more things."
-                   , "<h4><br/><br/><b>Q: Can I take the dataset and use it for my research?</b><br/>
-                   A: The FORRT Replication Database is open and shared under a CC-By Attribution 4.0 International license. Please cite us (see About-tab) if you use these resources. Reach out to us if you want to code a moderator and maybe we can join forces (some moderators have already been coded for parts of the data). Also, we are happy about feedback or knowing that other people can make use of this project!"
-                   , "<h4><br/><br/><b>Q: How is this project related to FORRT's replications and reversals? Should I enter my study in both places?</b><br/>
-                   A: This project is independent of FORRT's replications and reversals. Whereas FORRT focuses on research topics, we focus on individual replications. ReD is actively collaborating with FORRT and we plan to merge both databases, thus you do not need to enter your results in both places. However, we do not know yet when a synthesis will be possible, so we encourage you to join both projects."
-                   , "<h4><br/><br/><b>Q: I want to enter a replication study that has an average effect size but also item-wise effects. Which should I enter in the FORRT Replication Database?</b><br/>
-                   A: Both ways are possible. If it is possible for you, please enter the effect sizes as differentiated as possible. This will facilitate future analyses and better allow researchers, to determine how to successfully replicate prior research. If entering the results on an item-by-item basis is not possible for some reason, we are still very happy about you entering an aggregated effect size. In this case, please write into the note-variable, that more fine-graind results are available."
-                   , "<h4><br/><br/><b>Q: What is the data strucure? Can you account for dependent studies? Can there be multiple results for a single study?</b><br/>
-                   A: Yes, we do account for multilevel structure / dependent effect sizes. Check out the Figure below for an in-depth explanation.<br/>"
-                   , img(src = "datastructure.png", height = 750, width = 750)
-
-                   # ### Q&A Template
-                   # , "<h4><br/><br/><b>Q: XXX?</b><br/>
-                   # A: XXX"
-
-                   , "<h5><br/><br/><i>Still confused? Send us an e-mail (see the About-tab for contact info)!</i>"
-                   , sep = ""))
-
-
-
-breaks <- HTML(paste("<br/><br/>",  sep = ""))
-
+source("website_text.R")
 
 ## Add custom theme (formatting)
 custom_theme <- bs_theme(
@@ -881,157 +397,160 @@ custom_theme <- bs_theme(
 ui <- fluidPage(
   theme = custom_theme
   , navbarPage(title = ""
-             , tabPanel(img(src = "fred.png", height = 67/2.5, width = 715/2.5), fluidRow(
-               column(6, info)
-             ))
-             , tabPanel("Replicability Tracker"
-                        , fluidRow(
-                          sidebarPanel(
-                                       #   textInput("titles", "Titles (e.g., Heat-Priming):")
-                                       # , textInput("tags", "Tags (e.g., anchoring):")
-                                       # , textInput("contributors", "Contributors (e.g., Smith):")
-                                        sliderInput("minpower", "Minimum Power", min = .05, max = .999, value = .05)
-                                       , selectInput("source", "Browse Large-Scale Projects:"
-                                                     , choices = c("All studies" = "All studies"
-                                                                   , "Individual submissions" = "Individual submissions"
-                                                                   , "FORRT Replications and Reversals" = "FORRT"
-                                                                   , "OSF Registries" = "OSF Registries"
-                                                                   , "CORE (Feldman JDM Replications)" = "CORE"
-                                                                   , "Reproducibility Project Psychology (OSC, 2015)" = "OSC 2015"
-                                                                   , "CRSP special issue"
-                                                                   , "Many Labs 1" =  "ML1"
-                                                                   ,  "Many Labs 3" = "ML3"
-                                                                   , "RRR1 (verbal overshadowing)" = "RRR1"
-                                                                   # , "RRR2 (X)" = "RRR2"
-                                                                   , "RRR3 (grammar on intentionality effect)" = "RRR3"
-                                                                   , "RRR4 (ego depletion)" = "RRR4"
-                                                                   , "RRR8 (professor priming)" = "RRR8"
-                                                                   , "RRR9 (hostility priming)" = "RRR9"
-                                                                   , "OpAQ (Anchoring Effects)" = "OpAQ"
-                                                                   , "Soto (Big5 Correlations)" = "Soto"
-                                                                   )
-                                                     , selected = "All studies")
-                                       , checkboxInput("validated", "Show validated entries only", value = TRUE)
-                                       , checkboxInput("codedentries", "Show coded entries only", value = TRUE)
-                                       , width = 2)
-                        , column(8
-                                 , dataset_info
-                                 # Red-and-green Barplot
-                                 , withSpinner(plotly::plotlyOutput("barplot", width = "100%", height = "250px"))
-                                 # Table for filtering
-                                 , withSpinner(DT::DTOutput("table"))
-                                 # RPP-Scatterplot
-                                 , scatterplot_title
-                                 , withSpinner(plotly::plotlyOutput("overviewplot", width = "100%", height = 800))
-                                 , scatterplot_explanation
-                                 # Barplot 2
-                                 , barplot2_title
-                                 , withSpinner(plotly::plotlyOutput("barplot2", width = "100%", height = "250px"))
-                                 , barplot2_explanation
-                                 # Z-Curve
-                                 , breaks
-                                 , zcurve_title, breaks
-                                 , withSpinner(shiny::plotOutput("zcurve_plot"))
-                                 , zcurve_explanation, breaks
-                        # , withSpinner(shiny::tableOutput("overview")), dataset_info1b
-             )))
+               , tabPanel(img(src = "fred.png", height = 67/2.5, width = 715/2.5), fluidRow(
+                 column(6, info)
+               ))
+               , tabPanel("Replicability Tracker"
+                          , fluidRow(
+                            sidebarPanel(
+                              #   textInput("titles", "Titles (e.g., Heat-Priming):")
+                              # , textInput("tags", "Tags (e.g., anchoring):")
+                              # , textInput("contributors", "Contributors (e.g., Smith):")
+                              sliderInput("minpower", "Minimum Power", min = .05, max = .999, value = .05)
+                              , selectInput("source", "Browse Large-Scale Projects:"
+                                            , choices = c("All studies" = "All studies"
+                                                          , "Individual submissions" = "Individual submissions"
+                                                          , "FORRT Replications and Reversals" = "FORRT"
+                                                          , "CORE (Feldman JDM Replications)" = "CORE"
+                                                          , "CRSP special issue"
+                                                          , "Data Replicada" =  "datareplicada"
+                                                          , "Many Labs 1" =  "ML1"
+                                                          , "Many Labs 2" =  "ML2"
+                                                          , "Many Labs 3" =  "ML3"
+                                                          , "OpAQ (Anchoring Effects)" = "OpAQ"
+                                                          , "OpenMKT.org Replications Catalog" =  "openmkt"
+                                                          , "OSF Registries" = "OSF Registries"
+                                                          , "Reproducibility Project Psychology (OSC, 2015)" = "OSC 2015"
+                                                          , "RRR1 (verbal overshadowing)" = "RRR1"
+                                                          # , "RRR2 (X)" = "RRR2"
+                                                          , "RRR3 (grammar on intentionality effect)" = "RRR3"
+                                                          , "RRR4 (ego depletion)" = "RRR4"
+                                                          , "RRR8 (professor priming)" = "RRR8"
+                                                          , "RRR9 (hostility priming)" = "RRR9"
+                                                          , "Soto (Big5 Correlations)" = "Soto"
+                                                          , "SSRP (Camerer et al., 2018)" = "SSRP"
+                                            )
+                                            , selected = "All studies")
+                              , checkboxInput("validated", "Show validated entries only", value = TRUE)
+                              , checkboxInput("codedentries", "Show coded entries only", value = TRUE)
+                              , width = 2)
+                            , column(8
+                                     , dataset_info
+                                     # Red-and-green Barplot
+                                     , withSpinner(plotly::plotlyOutput("barplot", width = "100%", height = "250px"))
+                                     # Table for filtering
+                                     , withSpinner(DT::DTOutput("table"))
+                                     # RPP-Scatterplot
+                                     , scatterplot_title
+                                     , withSpinner(plotly::plotlyOutput("overviewplot", width = "100%", height = 800))
+                                     , scatterplot_explanation
+                                     # Barplot 2
+                                     , barplot2_title
+                                     , withSpinner(plotly::plotlyOutput("barplot2", width = "100%", height = "250px"))
+                                     , barplot2_explanation
+                                     # Z-Curve
+                                     , breaks
+                                     , zcurve_title, breaks
+                                     , withSpinner(shiny::plotOutput("zcurve_plot"))
+                                     , zcurve_explanation, breaks
+                                     # , withSpinner(shiny::tableOutput("overview")), dataset_info1b
+                            )))
 
 
-             , tabPanel("Study Overview"
-                        , fluidRow(
+               , tabPanel("Study Overview"
+                          , fluidRow(
                             column(8, forest_info, withSpinner(plotly::plotlyOutput("forestplot", width = "100%", height = forestplotheight)))
-                          # , withSpinner(shiny::tableOutput("overview")), dataset_info1b
-                        ))
+                            # , withSpinner(shiny::tableOutput("overview")), dataset_info1b
+                          ))
 
-             , tabPanel("Dataset", dataset_explanation, breaks
-                        , downloadButton("reddownload", label = "Download dataset")
-                        , breaks
-                        , dataset_headline
-                        , withSpinner(DT::DTOutput("dataset"))
-                        , breaks
-                        , variables_headline
-                        , withSpinner(DT::DTOutput("variables"))
-                        )
+               , tabPanel("Dataset", dataset_explanation, breaks
+                          , downloadButton("reddownload", label = "Download dataset")
+                          , breaks
+                          , dataset_headline
+                          , withSpinner(DT::DTOutput("dataset"))
+                          , breaks
+                          , variables_headline
+                          , withSpinner(DT::DTOutput("variables"))
+               )
 
-             , tabPanel("Correlates of Replicability"
-                        , correlates_info
-                        , correlates_decade
-                        , withSpinner(plotly::plotlyOutput("correlate_decade"))
-                        , correlates_journal
-                        , withSpinner(plotly::plotlyOutput("correlate_journal", width = "100%", height = "2000px"))
-             )
+               , tabPanel("Correlates of Replicability"
+                          , correlates_info
+                          , correlates_decade
+                          , withSpinner(plotly::plotlyOutput("correlate_decade"))
+                          , correlates_journal
+                          , withSpinner(plotly::plotlyOutput("correlate_journal", width = "100%", height = "2000px"))
+               )
 
-             , tabPanel("Moderators [alpha]"
-                        , moderators_info
-                        , shiny::selectInput("moderator", label = "Moderators"
-                                             , choices = list(
-                                                "Original Effect Size" = "es_original"
-                                               , "Journal" = "orig_journal"
-                                               , "Year of Original Publication" = "orig_year"
-                                               , "Power of Replication Study" = "power"
-                                             ))
-                        , fluidRow(withSpinner(plotly::plotlyOutput("flexibleplot", width = "100%", height = 600))
-                                   )
-                        , fluidRow(
-                          column(6, withSpinner(DT::DTOutput("flexiblemodtable")))
-                        , column(6, withSpinner(shiny::htmlOutput("flexiblemoderatortext")))
-                        )
-             )
+               , tabPanel("Moderators [alpha]"
+                          , moderators_info
+                          , shiny::selectInput("moderator", label = "Moderators"
+                                               , choices = list(
+                                                 "Original Effect Size" = "es_original"
+                                                 , "Journal" = "orig_journal"
+                                                 , "Year of Original Publication" = "orig_year"
+                                                 , "Power of Replication Study" = "power"
+                                               ))
+                          , fluidRow(withSpinner(plotly::plotlyOutput("flexibleplot", width = "100%", height = 600))
+                          )
+                          , fluidRow(
+                            column(6, withSpinner(DT::DTOutput("flexiblemodtable")))
+                            , column(6, withSpinner(shiny::htmlOutput("flexiblemoderatortext")))
+                          )
+               )
 
-             # , tabPanel("Summarizer [alpha]"
-             #            , fluidRow(
-             #                    column(12
-             #                           , checker_info
-             #                           , withSpinner(DT::DTOutput("checkertable"))
-             #                           , withSpinner(DT::DTOutput("flexiblecheckertable"))
-             #                           , withSpinner(shiny::htmlOutput("flexiblesummarizertext"))
-             #                    ), column(6
-             #
-             #                           , withSpinner(plotly::plotlyOutput("checker_violin", width = "100%", height = "400px"))
-             #                       )
-             #                       , column(6
-             #                           # , withSpinner(plotly::plotlyOutput("checker_maplot")
-             #                           , withSpinner(plotly::plotlyOutput("checker_bar")
-             #                                 # , checker_matable
-             #                                )
-             #                       )
-             #            ))
+               # , tabPanel("Summarizer [alpha]"
+               #            , fluidRow(
+               #                    column(12
+               #                           , checker_info
+               #                           , withSpinner(DT::DTOutput("checkertable"))
+               #                           , withSpinner(DT::DTOutput("flexiblecheckertable"))
+               #                           , withSpinner(shiny::htmlOutput("flexiblesummarizertext"))
+               #                    ), column(6
+               #
+               #                           , withSpinner(plotly::plotlyOutput("checker_violin", width = "100%", height = "400px"))
+               #                       )
+               #                       , column(6
+               #                           # , withSpinner(plotly::plotlyOutput("checker_maplot")
+               #                           , withSpinner(plotly::plotlyOutput("checker_bar")
+               #                                 # , checker_matable
+               #                                )
+               #                       )
+               #            ))
 
-             , tabPanel("References-Checker [alpha]"
-                        , rc_info
-                        , textAreaInput("refcheck", "References"
-                                    , value = "Judge, T. A., & Bono, J. E. (2000). Five-factor model of personality and transformational leadership. Journal of Applied Psychology, 85, 751-765. 10.1037/0021-9010.85.5.751"
-                                    , width = "1000px"
-                                    , height = "200px"
-                                    , placeholder = NULL
-                                          )
-                        , withSpinner(plotly::plotlyOutput("references_barplot"))
-                        , withSpinner(tableOutput("references_doi"))
-             )
+               , tabPanel("References-Checker [alpha]"
+                          , rc_info
+                          , textAreaInput("refcheck", "References"
+                                          , value = "Judge, T. A., & Bono, J. E. (2000). Five-factor model of personality and transformational leadership. Journal of Applied Psychology, 85, 751-765. 10.1037/0021-9010.85.5.751"
+                                          , width = "1000px"
+                                          , height = "200px"
+                                          , placeholder = NULL
+                          )
+                          , withSpinner(plotly::plotlyOutput("references_barplot"))
+                          , withSpinner(tableOutput("references_doi"))
+               )
 
-             , tabPanel("References"
-                        , references_headline, references_list
-                        , references_redpublications, references_list_redpublications
-                        , packages_headline, packages_list
-             )
+               , tabPanel("References"
+                          , references_headline, references_list
+                          , references_redpublications, references_list_redpublications
+                          , packages_headline, packages_list
+               )
 
-             , tabPanel("FAQ"
-                        , faqs
-             )
+               , tabPanel("FAQ"
+                          , faqs
+               )
 
-             , tabPanel("About"
-                        , about, breaks
-                        , img(src = "ub.png", height  = 100)
-                        , img(src = "um.png", height  = 50)
-                        , img(src = "nwo.png", height = 100)
-                        , breaks
-                        , withSpinner(DT::DTOutput("author_contributions"))
-                        , breaks
-                        , changelog
-                        , img(src = "fred.svg", height = 100)
-                        # , breaks
-                        # , img(src = "FORRT.svg", height = 100)
-                        , tags$style(HTML("
+               , tabPanel("About"
+                          , about, breaks
+                          , img(src = "ub.png", height  = 100)
+                          , img(src = "um.png", height  = 50)
+                          , img(src = "nwo.png", height = 100)
+                          , breaks
+                          , breaks
+                          , changelog
+                          , img(src = "fred.png", height = 80)
+                          # , breaks
+                          # , img(src = "FORRT.svg", height = 100)
+                          , tags$style(HTML("
                                 .navbar-default .navbar-brand {color:black;}
         .navbar-default .navbar-brand:hover {color:black;}
         .navbar { background-color:#EAEAEA;}
@@ -1044,7 +563,7 @@ ui <- fluidPage(
 
 
 
-             )
+               )
   )
 )
 
@@ -1093,17 +612,17 @@ server <- function(input, output) {
 
     DT::datatable(
       red_temp_filtered
-        , extensions = "Buttons"
-        , selection = "none"
-        , options = list(scrollX = TRUE
-                         , dom = "Bfrtip"
-                         , buttons = c('copy', 'csv', 'excel')
-                         , pageLength = 5
-                         # , lengthMenu = c(5, 10, 100) # XXX not working yet
-        ), rownames = FALSE
+      , extensions = "Buttons"
+      , selection = "none"
+      , options = list(scrollX = TRUE
+                       , dom = "Bfrtip"
+                       , buttons = c('copy', 'csv', 'excel')
+                       , pageLength = 5
+                       # , lengthMenu = c(5, 10, 100) # XXX not working yet
+      ), rownames = FALSE
       # , options = list(pageLength = 5)
       # , rownames = FALSE
-      )
+    )
 
     # DT::datatable(
     #   red_temp[, c("description", "tags", "result", "ref_original", "ref_replication")]
@@ -1157,9 +676,9 @@ server <- function(input, output) {
     red_temp <- red_temp[s2, ]
 
     red_temp$scatterplotdescription <- paste(red_temp$description, "\nr(original) = "
-                                               , round(red_temp$es_original, 3)
-                                               , ", r(replication) = "
-                                               , round(red_temp$es_replication, 3)
+                                             , round(red_temp$es_original, 3)
+                                             , ", r(replication) = "
+                                             , round(red_temp$es_replication, 3)
                                              , sep = "")
 
     pointsize <- ifelse(nrow(red_temp) < 10, 5, ifelse(nrow(red_temp) < 100, 4, 3))
@@ -1200,7 +719,7 @@ server <- function(input, output) {
 
 
 
-# Forest Plot -------------------------------------------------------------
+  # Forest Plot -------------------------------------------------------------
 
 
   output$forestplot <- plotly::renderPlotly({
@@ -1255,11 +774,11 @@ server <- function(input, output) {
                     , "Effect sizes available.\n"
                     # , length(unique(red_temp$ref_original))
                     # , "Original studies were examined in replication studies."
-                    ))
+      ))
 
     p <- ggplotly(forest) %>%
-          plotly::config(displayModeBar = FALSE) %>%
-          layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) #  %>% layout(height = 10000, width = 1200)
+      plotly::config(displayModeBar = FALSE) %>%
+      layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) #  %>% layout(height = 10000, width = 1200)
   })
 
 
@@ -1312,11 +831,11 @@ server <- function(input, output) {
     barchart <- ggplot(bardata, aes(x = "", fill = Result, y  = Proportion, text = description)) + geom_bar(position = "fill", stat = "identity") +
       theme_bw() + ylab("Percentage") + xlab("") + coord_flip() +
       scale_fill_manual("Result", values = c(
-          "success" = "#30c25a"
+        "success" = "#30c25a"
         , "informative failure to replicate" = "#f0473e"
         , "practical failure to replicate" = "#f2bbb8"
         , "inconclusive" = "#60bef7")) + # , NA = "grey"
-    ggtitle(paste(nrow(red_temp), "of", nrow(red), "studies selected."))
+      ggtitle(paste(nrow(red_temp), "of", nrow(red), "studies selected."))
     p <- ggplotly(barchart, tooltip = "text") %>%
       plotly::config(displayModeBar = FALSE) %>%
       layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE)) #  %>% layout(height = 10000, width = 1200)
@@ -1326,7 +845,7 @@ server <- function(input, output) {
 
 
 
-# Barplot Result2 ---------------------------------------------------------
+  # Barplot Result2 ---------------------------------------------------------
 
   output$barplot2 <- plotly::renderPlotly({
 
@@ -1384,7 +903,7 @@ server <- function(input, output) {
       geom_bar(stat = "identity") +
       theme_bw() + ylab("Percentage") + xlab("") + coord_flip() +
       scale_fill_manual("Result", values = c(
-          "no signal - inconsistent" = "#9c0505"
+        "no signal - inconsistent" = "#9c0505"
         , "signal - consistent" = "#05e361"
         , "no signal - OS n.s." = "grey"
         , "NA - OS n.s." = "grey"
@@ -1393,7 +912,7 @@ server <- function(input, output) {
         , "signal - OS n.s." = "grey"
         , "no signal - consistent" = "#b4d4a5"
         # , "NA" = "grey"
-        )) + # , NA = "grey"
+      )) + # , NA = "grey"
       ggtitle(paste(nrow(red_temp), "of", nrow(red), "studies selected."))
     p <- ggplotly(barchart, tooltip = "text") %>%
       plotly::config(displayModeBar = FALSE) %>%
@@ -1402,64 +921,64 @@ server <- function(input, output) {
 
 
 
-# Z-Curve -----------------------------------------------------------------
+  # Z-Curve -----------------------------------------------------------------
 
-output$zcurve_plot <- shiny::renderPlot({
+  output$zcurve_plot <- shiny::renderPlot({
 
-  ## apply filters
-  red_temp <- red
-  red_temp <- red_temp[rev(row.names(red_temp)), ]
+    ## apply filters
+    red_temp <- red
+    red_temp <- red_temp[rev(row.names(red_temp)), ]
 
-  red_temp <- red_temp[red_temp$power >= input$minpower, ]
+    red_temp <- red_temp[red_temp$power >= input$minpower, ]
 
-  # source
-  if (input$source == "All studies") {
-    red_temp <- red_temp
-  } else {
-    red_temp <- red_temp[red_temp$source == input$source, ]
-  }
+    # source
+    if (input$source == "All studies") {
+      red_temp <- red_temp
+    } else {
+      red_temp <- red_temp[red_temp$source == input$source, ]
+    }
 
-  # validated
-  if (input$validated == TRUE) {
-    red_temp <- red_temp[!is.na(red_temp$validated), ]
-  }
+    # validated
+    if (input$validated == TRUE) {
+      red_temp <- red_temp[!is.na(red_temp$validated), ]
+    }
 
-  # exclude NAs
-  red_temp <- red_temp[!is.na(red_temp$result), ]
-
-
-  ## Choose only entries that are also displayed in the table
-  s1 <- input$table_rows_current  # rows on the current page
-  s2 <- input$table_rows_all      # rows on all pages (after being filtered)
-  s3 <- input$table_rows_selected # selected rows
-  red_temp <- red_temp[s2, ]
+    # exclude NAs
+    red_temp <- red_temp[!is.na(red_temp$result), ]
 
 
-  # # make descriptions shorter
-  # red_temp$description <- gsub("(.{70,}?)\\s", "\\1\n", red_temp$description) # line breaks
-
-  # use only studies with complete data
-  red_temp <- red_temp[!is.na(red_temp$z), ]
-
-  # run z-curve analysis
-  zc <- zcurve::zcurve(z = red_temp$z, method = "EM", bootstrap = 0)
-
-  orr <- round(mean(red_temp$result == "success", na.rm = TRUE), 2)
-  err <- zc$coefficients[1]
-
-  # create plot
-  zcurve::plot.zcurve(zc, annotation = TRUE, CI = TRUE, main = paste("Observed Replication Rate: ", orr
-                                                                     # , "\nCorrected ERR: ", round(1.85*err-0.573, digits = 2)
-                                                                     , sep = ""))
-
-})
+    ## Choose only entries that are also displayed in the table
+    s1 <- input$table_rows_current  # rows on the current page
+    s2 <- input$table_rows_all      # rows on all pages (after being filtered)
+    s3 <- input$table_rows_selected # selected rows
+    red_temp <- red_temp[s2, ]
 
 
+    # # make descriptions shorter
+    # red_temp$description <- gsub("(.{70,}?)\\s", "\\1\n", red_temp$description) # line breaks
+
+    # use only studies with complete data
+    red_temp <- red_temp[!is.na(red_temp$z), ]
+
+    # run z-curve analysis
+    zc <- zcurve::zcurve(z = red_temp$z, method = "EM", bootstrap = 0)
+
+    orr <- round(mean(red_temp$result == "success", na.rm = TRUE), 2)
+    err <- zc$coefficients[1]
+
+    # create plot
+    zcurve::plot.zcurve(zc, annotation = TRUE, CI = TRUE, main = paste("Observed Replication Rate: ", orr
+                                                                       # , "\nCorrected ERR: ", round(1.85*err-0.573, digits = 2)
+                                                                       , sep = ""))
+
+  })
 
 
 
 
-# Dataset -----------------------------------------------------------------
+
+
+  # Dataset -----------------------------------------------------------------
 
 
 
@@ -1468,18 +987,12 @@ output$zcurve_plot <- shiny::renderPlot({
 
   # variables
   output$variables <- DT::renderDT(DT::datatable(dataset_variables
-                                               , rownames = FALSE, options = list(pageLength = 20)))
-
-  # contributions
-  output$author_contributions <- DT::renderDT(DT::datatable(contributors[, c("name", "roles", "email")]
-                                                 , rownames = FALSE,options = list(
-                                                   info = FALSE
-                                                   , paging = FALSE
-                                                   , searching = FALSE)))
+                                                 , rownames = FALSE, options = list(pageLength = 20)))
 
 
 
-# Correlates of R ---------------------------------------------------------
+
+  # Correlates of R ---------------------------------------------------------
 
 
   output$correlate_decade <- plotly::renderPlotly({
@@ -1491,7 +1004,7 @@ output$zcurve_plot <- shiny::renderPlot({
     # Aggregate results so that there is one value for each original study
     red_agg <- aggregate(result ~ ref_original, data = red, FUN = function(x) {paste(unique(x), collapse = ", ")})
 
-        # recode mixed results
+    # recode mixed results
     red_agg$result <- dplyr::recode(red_agg$result
                                     , "success" = "success"
                                     , "informative failure to replicate" = "informative failure to replicate"
@@ -1582,12 +1095,12 @@ output$zcurve_plot <- shiny::renderPlot({
       labs(x = "", y = "Number of Replicated Original Studies"
            , title = paste("Aggregated replication outcomes by journal for k = ", sum(reprate_journal$k), " replicated original studies.", sep = "")) +
       scale_fill_manual("Result", values = c(
-          "success" = "#30c25a"
+        "success" = "#30c25a"
         , "informative failure to replicate" = "#f0473e"
         , "practical failure to replicate" = "#f2bbb8"
         , "inconclusive" = "#60bef7"
         , "mixed" = "#f0c91f"
-        )) +
+      )) +
       scale_x_discrete(limits = rev) +
       coord_flip()
 
@@ -1635,7 +1148,7 @@ output$zcurve_plot <- shiny::renderPlot({
     }
     plotly::ggplotly(p) %>%
       plotly::config(displayModeBar = FALSE) # %>% # layout(height = 800, width = 900) %>%
-      # layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+    # layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
   })
 
 
@@ -1751,7 +1264,7 @@ output$zcurve_plot <- shiny::renderPlot({
 
 
 
-# REFERENCE CHECKER -------------------------------------------------------
+  # REFERENCE CHECKER -------------------------------------------------------
 
   output$references_barplot <- plotly::renderPlotly({
 
@@ -1828,10 +1341,10 @@ output$zcurve_plot <- shiny::renderPlot({
 
 
 
-# CHECKER / SUMMARIZER -----------------------------------------------------------------
+  # CHECKER / SUMMARIZER -----------------------------------------------------------------
 
 
-# Checkertable ------------------------------------------------------------
+  # Checkertable ------------------------------------------------------------
 
 
   output$checkertable <- DT::renderDT(server = FALSE, {
@@ -1863,150 +1376,150 @@ output$zcurve_plot <- shiny::renderPlot({
                        , buttons = c('copy', 'csv', 'excel')
                        , pageLength = 5
                        # , lengthMenu = c(5, 10, 100) # XXX not working yet
-                       ), rownames = FALSE
+      ), rownames = FALSE
     )
   }
   )
 
 
 
-# # Checker Violin Plot -----------------------------------------------------
-#
-#
-#
-#   output$checker_violin <- plotly::renderPlotly({
-#
-#     # # combine coded and uncoded studies
-#     # red <- plyr::rbind.fill(red, as)
-#     # red <- plyr::rbind.fill(red, forrt)
-#     # red[is.na(red$result), "result"] <- "not coded yet"
-#
-#     # this plot is based on the filtered entries from the checkertable
-#     red_temp <- red
-#     red_temp <- red_temp[rev(row.names(red_temp)), ]
-#
-#     # exclude non-validated entries
-#     red_temp <- red_temp[!is.na(red_temp$validated), ]
-#
-#     # use only filtered studies
-#     s1 <- input$checkertable_rows_current  # rows on the current page
-#     s2 <- input$checkertable_rows_all      # rows on all pages (after being filtered)
-#     s3 <- input$checkertable_rows_selected # selected rows
-#
-#     red_temp <- red_temp[s2, ]
-#
-#     # exclude NAs
-#     red_temp <- red_temp[!is.na(red_temp$result), ]
-#
-#     # compute se
-#     red_temp$se_original <- sqrt((1-abs(as.numeric(red_temp$es_original))^2)/(as.numeric(red_temp$n_original)-2))
-#     red_temp$se_replication <- sqrt((1-abs(as.numeric(red_temp$es_replication))^2)/(as.numeric(red_temp$n_replication)-2))
-#
-#     redlong_original <- red_temp[, c("es_original", "ref_original", "n_original", "se_original")]
-#     redlong_original$type = "Original"
-#     names(redlong_original) <- c("es", "ref", "n", "se", "type")
-#     redlong_original <- redlong_original[!duplicated(redlong_original), ]
-#
-#     redlong_replication <- red_temp[ , c("es_replication", "ref_replication", "n_replication", "se_replication")]
-#     redlong_replication$type = "Replication"
-#     names(redlong_replication) <- c("es", "ref", "n", "se", "type")
-#
-#     redlong <- rbind(redlong_original, redlong_replication)
-#     checker_gg <- ggplot(redlong, aes(x = type, y = as.numeric(es), text = ref)) + # , text = ref
-#       # geom_violin(draw_quantiles =  .5) +
-#       geom_jitter(width = .1, height = 0) +
-#       xlab("Study Type") + ylab("r") +
-#       geom_abline(h = 0, slope = 0, lty = 2) +
-#       theme_bw()
-#
-#     checker_plotly <- plotly::ggplotly(checker_gg, tooltip = "text") %>% #
-#       plotly::config(displayModeBar = FALSE) %>%
-#       layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
-#
-#     checker_plotly
-#
-#   })
+  # # Checker Violin Plot -----------------------------------------------------
+  #
+  #
+  #
+  #   output$checker_violin <- plotly::renderPlotly({
+  #
+  #     # # combine coded and uncoded studies
+  #     # red <- plyr::rbind.fill(red, as)
+  #     # red <- plyr::rbind.fill(red, forrt)
+  #     # red[is.na(red$result), "result"] <- "not coded yet"
+  #
+  #     # this plot is based on the filtered entries from the checkertable
+  #     red_temp <- red
+  #     red_temp <- red_temp[rev(row.names(red_temp)), ]
+  #
+  #     # exclude non-validated entries
+  #     red_temp <- red_temp[!is.na(red_temp$validated), ]
+  #
+  #     # use only filtered studies
+  #     s1 <- input$checkertable_rows_current  # rows on the current page
+  #     s2 <- input$checkertable_rows_all      # rows on all pages (after being filtered)
+  #     s3 <- input$checkertable_rows_selected # selected rows
+  #
+  #     red_temp <- red_temp[s2, ]
+  #
+  #     # exclude NAs
+  #     red_temp <- red_temp[!is.na(red_temp$result), ]
+  #
+  #     # compute se
+  #     red_temp$se_original <- sqrt((1-abs(as.numeric(red_temp$es_original))^2)/(as.numeric(red_temp$n_original)-2))
+  #     red_temp$se_replication <- sqrt((1-abs(as.numeric(red_temp$es_replication))^2)/(as.numeric(red_temp$n_replication)-2))
+  #
+  #     redlong_original <- red_temp[, c("es_original", "ref_original", "n_original", "se_original")]
+  #     redlong_original$type = "Original"
+  #     names(redlong_original) <- c("es", "ref", "n", "se", "type")
+  #     redlong_original <- redlong_original[!duplicated(redlong_original), ]
+  #
+  #     redlong_replication <- red_temp[ , c("es_replication", "ref_replication", "n_replication", "se_replication")]
+  #     redlong_replication$type = "Replication"
+  #     names(redlong_replication) <- c("es", "ref", "n", "se", "type")
+  #
+  #     redlong <- rbind(redlong_original, redlong_replication)
+  #     checker_gg <- ggplot(redlong, aes(x = type, y = as.numeric(es), text = ref)) + # , text = ref
+  #       # geom_violin(draw_quantiles =  .5) +
+  #       geom_jitter(width = .1, height = 0) +
+  #       xlab("Study Type") + ylab("r") +
+  #       geom_abline(h = 0, slope = 0, lty = 2) +
+  #       theme_bw()
+  #
+  #     checker_plotly <- plotly::ggplotly(checker_gg, tooltip = "text") %>% #
+  #       plotly::config(displayModeBar = FALSE) %>%
+  #       layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  #
+  #     checker_plotly
+  #
+  #   })
 
 
-# # Checker MA Plot ---------------------------------------------------------
-#
-#   output$checker_maplot <- plotly::renderPlotly({
-#
-#     # this plot is based on the filtered entries from the checkertable
-#     red_temp <- red
-#     red_temp <- red_temp[rev(row.names(red_temp)), ]
-#
-#     # exclude non-validated entries
-#     red_temp <- red_temp[!is.na(red_temp$validated), ]
-#
-#     # use only filtered studies
-#     s1 <- input$checkertable_rows_current  # rows on the current page
-#     s2 <- input$checkertable_rows_all      # rows on all pages (after being filtered)
-#     s3 <- input$checkertable_rows_selected # selected rows
-#
-#     red_temp <- red_temp[s2, ]
-#
-#     # exclude NAs
-#     red_temp <- red_temp[!is.na(red_temp$result), ]
-#
-#     # compute se
-#     red_temp$se_original <- sqrt((1-abs(as.numeric(red_temp$es_original))^2)/(as.numeric(red_temp$n_original)-2))
-#     red_temp$se_replication <- sqrt((1-abs(as.numeric(red_temp$es_replication))^2)/(as.numeric(red_temp$n_replication)-2))
-#
-#     redlong_original <- red_temp[, c("es_original", "ref_original", "n_original", "se_original")]
-#     redlong_original$type = "Original"
-#     names(redlong_original) <- c("es", "ref", "n", "se", "type")
-#     redlong_original <- redlong_original[!duplicated(redlong_original), ]
-#
-#     redlong_replication <- red_temp[ , c("es_replication", "ref_replication", "n_replication", "se_replication")]
-#     redlong_replication$type = "Replication"
-#     names(redlong_replication) <- c("es", "ref", "n", "se", "type")
-#
-#     # remova missing values
-#     redlong <- rbind(redlong_original, redlong_replication)
-#
-#
-#     redlong <- redlong[!is.na(redlong$ref),]
-#
-#     model <- metafor::rma.mv(yi = as.numeric(es)
-#                              , V = se^2
-#                              , random = ~1 | ref
-#                              , tdist = TRUE
-#                              , data = redlong
-#                              , mods = ~ as.factor(type) - 1
-#                              , method = "ML")
-#
-#
-#     summary(model)
-#
-#     ma_table <- data.frame("study_type" = as.character(c("Original", "Replication"))
-#                            , "mean_r" =   round(as.numeric(model$beta), 3)
-#                            , "se" =       round(as.numeric(model$se), 3)
-#                            , "lower_ci" = round(as.numeric(model$ci.lb), 3)
-#                            , "upper_ci" = round(as.numeric(model$ci.ub), 3)
-#                            , "n" = c(sum(redlong$type == "Original")
-#                                      , sum(redlong$type == "Replication"))
-#     )
-#
-#     checker_maplot <- ggplot(ma_table, aes(x = study_type, y = mean_r, ymin = lower_ci, ymax = upper_ci)) +
-#       geom_point() +
-#       geom_errorbar() +
-#       theme_bw() +
-#       geom_abline(slope = 0, lty = 2) +
-#       ylim(c(-.1, round(max(as.numeric(model$ci.ub)), 1)+.1)) +
-#       xlab("Study Type") + ylab("Mean Effect Size Estimate (r)")
-#
-#     checker_maplotly <- plotly::ggplotly(checker_maplot) %>% # , tooltip = "text"
-#       plotly::config(displayModeBar = FALSE) %>%
-#       layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
-#
-#     checker_maplotly
-#   })
+  # # Checker MA Plot ---------------------------------------------------------
+  #
+  #   output$checker_maplot <- plotly::renderPlotly({
+  #
+  #     # this plot is based on the filtered entries from the checkertable
+  #     red_temp <- red
+  #     red_temp <- red_temp[rev(row.names(red_temp)), ]
+  #
+  #     # exclude non-validated entries
+  #     red_temp <- red_temp[!is.na(red_temp$validated), ]
+  #
+  #     # use only filtered studies
+  #     s1 <- input$checkertable_rows_current  # rows on the current page
+  #     s2 <- input$checkertable_rows_all      # rows on all pages (after being filtered)
+  #     s3 <- input$checkertable_rows_selected # selected rows
+  #
+  #     red_temp <- red_temp[s2, ]
+  #
+  #     # exclude NAs
+  #     red_temp <- red_temp[!is.na(red_temp$result), ]
+  #
+  #     # compute se
+  #     red_temp$se_original <- sqrt((1-abs(as.numeric(red_temp$es_original))^2)/(as.numeric(red_temp$n_original)-2))
+  #     red_temp$se_replication <- sqrt((1-abs(as.numeric(red_temp$es_replication))^2)/(as.numeric(red_temp$n_replication)-2))
+  #
+  #     redlong_original <- red_temp[, c("es_original", "ref_original", "n_original", "se_original")]
+  #     redlong_original$type = "Original"
+  #     names(redlong_original) <- c("es", "ref", "n", "se", "type")
+  #     redlong_original <- redlong_original[!duplicated(redlong_original), ]
+  #
+  #     redlong_replication <- red_temp[ , c("es_replication", "ref_replication", "n_replication", "se_replication")]
+  #     redlong_replication$type = "Replication"
+  #     names(redlong_replication) <- c("es", "ref", "n", "se", "type")
+  #
+  #     # remova missing values
+  #     redlong <- rbind(redlong_original, redlong_replication)
+  #
+  #
+  #     redlong <- redlong[!is.na(redlong$ref),]
+  #
+  #     model <- metafor::rma.mv(yi = as.numeric(es)
+  #                              , V = se^2
+  #                              , random = ~1 | ref
+  #                              , tdist = TRUE
+  #                              , data = redlong
+  #                              , mods = ~ as.factor(type) - 1
+  #                              , method = "ML")
+  #
+  #
+  #     summary(model)
+  #
+  #     ma_table <- data.frame("study_type" = as.character(c("Original", "Replication"))
+  #                            , "mean_r" =   round(as.numeric(model$beta), 3)
+  #                            , "se" =       round(as.numeric(model$se), 3)
+  #                            , "lower_ci" = round(as.numeric(model$ci.lb), 3)
+  #                            , "upper_ci" = round(as.numeric(model$ci.ub), 3)
+  #                            , "n" = c(sum(redlong$type == "Original")
+  #                                      , sum(redlong$type == "Replication"))
+  #     )
+  #
+  #     checker_maplot <- ggplot(ma_table, aes(x = study_type, y = mean_r, ymin = lower_ci, ymax = upper_ci)) +
+  #       geom_point() +
+  #       geom_errorbar() +
+  #       theme_bw() +
+  #       geom_abline(slope = 0, lty = 2) +
+  #       ylim(c(-.1, round(max(as.numeric(model$ci.ub)), 1)+.1)) +
+  #       xlab("Study Type") + ylab("Mean Effect Size Estimate (r)")
+  #
+  #     checker_maplotly <- plotly::ggplotly(checker_maplot) %>% # , tooltip = "text"
+  #       plotly::config(displayModeBar = FALSE) %>%
+  #       layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+  #
+  #     checker_maplotly
+  #   })
 
 
-# Checker Barplot ---------------------------------------------------------
+  # Checker Barplot ---------------------------------------------------------
 
-    output$checker_bar <- plotly::renderPlotly({
+  output$checker_bar <- plotly::renderPlotly({
 
     # this plot is based on the filtered entries from the checkertable
     red_temp <- red
@@ -2049,7 +1562,7 @@ output$zcurve_plot <- shiny::renderPlot({
     p
   })
 
-# Checker MA Table --------------------------------------------------------
+  # Checker MA Table --------------------------------------------------------
 
 
   output$flexiblecheckertable <- DT::renderDT({
@@ -2116,7 +1629,7 @@ output$zcurve_plot <- shiny::renderPlot({
   })
 
 
-# Checker MA Text ------------------------------------------------------------
+  # Checker MA Text ------------------------------------------------------------
 
   output$flexiblesummarizertext <- shiny::renderText({
 
@@ -2178,7 +1691,7 @@ output$zcurve_plot <- shiny::renderPlot({
   })
 
 
-# Downloadbutton ----------------------------------------------------------
+  # Downloadbutton ----------------------------------------------------------
 
 
   output$reddownload <- downloadHandler(
@@ -2196,4 +1709,5 @@ output$zcurve_plot <- shiny::renderPlot({
 
 # Run the application
 shinyApp(ui = ui, server = server)
+
 
