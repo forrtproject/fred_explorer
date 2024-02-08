@@ -1,9 +1,7 @@
 name: Deploy to shinyapps.io
 on:
-
   # run on any push 
   push:
-
   # run on request (via button in actions menu)
   workflow_dispatch:
       
@@ -23,7 +21,7 @@ jobs:
         run: |
           install.packages(c('shiny', 'rsconnect'))
           rsconnect::setAccountInfo(name='lukaswallrich', token='${{secrets.SHINYAPPS_TOKEN}}', secret='${{secrets.SHINYAPPS_SECRET}}')
-          rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE)
+          rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE, envManagementR = TRUE)
         shell: Rscript {0}
 
     env:
