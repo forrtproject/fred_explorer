@@ -88,15 +88,18 @@ dataset_variables <- data.frame("Variable" = variables, "Description" = explanat
 ## Static dataset ----------------------------------------------------------
 
 message("Loading data")
+data_file <- tempfile(fileext = ".xlsx")
+download.file(red_link, data_file)
+
 # Open processed dataset
-red <- openxlsx::read.xlsx(red_link, sheet = "Data") # .xlsx file
+red <- openxlsx::read.xlsx(data_file, sheet = "Data") # .xlsx file
 
 red <- red[-(1:2), ] # exclude labels and "X" column
 
 # additional studies
-as <- openxlsx::read.xlsx(red_link, sheet = "Additional Studies to be added", startRow = 2)
+as <- openxlsx::read.xlsx(data_file, sheet = "Additional Studies to be added", startRow = 2)
 as$id <- paste("uncoded_studies_", rownames(as), sep = "")
-forrt  <- openxlsx::read.xlsx(red_link, sheet = "FORRT R&R (editable)", startRow = 1)
+forrt  <- openxlsx::read.xlsx(data_file, sheet = "FORRT R&R (editable)", startRow = 1)
 forrt <- forrt[-(1:2), ] # exclude labels and "X" column
 
 message("Loaded data")
@@ -1142,14 +1145,25 @@ server <- function(input, output) {
   preprocessed_data <- reactive({
     es <- red
     es$mod <- es[, input$moderator]
-    es <- es[!is.na(es$mod), !is.na(es$ref_original), ]
+    es <- es[!is.na(es$mod), ]
+    es <- es[!is.na(es$ref_original), ]
     es$se <- sqrt((1 - abs(es$es_original)^2) / (es$n_original - 2))
     es
   })
 
   model_computation <- reactive({
     es <- preprocessed_data()
-    metafor::rma.mv(yi = es$es_replication, V = es$se^2, random = ~1 | es$ref_original, tdist = TRUE, data = es, mods = ~ mod - 1, method = "ML")
+    message("Estimate metafor")
+    mod <- metafor::rma.mv(yi = es_replication
+                             , V = se^2
+                             , random = ~1 | ref_original
+                             , tdist = TRUE
+                             , data = es
+                             , mods = ~ mod - 1
+                             , method = "ML")
+
+    message("Done estimating")
+    mod
   })
 
   # Moderator Plot ----------------------------------------------------------

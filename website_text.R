@@ -7,7 +7,7 @@
 # c_names <- paste(contributors$apa, collapse = ", ")
 
 # Format contributor names [FReD version, used as of 06.02.2024 dmy]
-contributors <- openxlsx::read.xlsx(red_link, sheet = "Contributors FReD")
+contributors <- openxlsx::read.xlsx(data_file, sheet = "Contributors FReD")
 contributors <- contributors[contributors$Added.to.FReD.website.as.contributor, ]
 contributors$first <- substr(contributors$First.name, 1, 1)
 contributors$middle <- ifelse(!is.na(contributors$Middle.name), paste(" ", substr(contributors$Middle.name, 1, 1), ".", sep = ""), "")
