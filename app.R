@@ -12,7 +12,7 @@ source("helpers.R")
 
 required_packages <- c(
   "shiny", "readxl", "shinycssloaders", "dplyr", "DT", "ggplot2",
-  "forcats", "gridExtra", "ggpubr", "reshape", "plotly", "httr",
+  "forcats", "gridExtra", "reshape", "plotly", "httr",
   "metafor", "openxlsx", "plyr", "pwr", "psychometric", "zcurve", "bslib", "stringr",
   "rcrossref")
 
@@ -28,7 +28,7 @@ library(DT)
 library(ggplot2)
 library(forcats)
 library(gridExtra)
-library(ggpubr)
+#library(ggpubr)
 library(reshape)
 library(plotly)
 library(httr)
@@ -45,11 +45,12 @@ library(rcrossref) # not needed here but listed so that it gets cited (was used 
 
 # BASIC INFO --------------------------------------------------------------
 
-version <- "Version 0.4.5"
+version <- "Version 0.4.6"
 date <- "09 February, 2024" # enter last update here
 forestplotheight <- "17000px" # make it so that forest plot is readable
 red_link <- "https://osf.io/z5u9b/download"
 
+source("changelog.R", local = TRUE) # Evaluate in calling environment, otherwise may fail on app start
 
 ### Variable explanations
 variables <- c("description"
@@ -86,7 +87,7 @@ dataset_variables <- data.frame("Variable" = variables, "Description" = explanat
 
 ## Static dataset ----------------------------------------------------------
 
-
+message("Loading data")
 # Open processed dataset
 red <- openxlsx::read.xlsx(red_link, sheet = "Data") # .xlsx file
 
@@ -97,6 +98,8 @@ as <- openxlsx::read.xlsx(red_link, sheet = "Additional Studies to be added", st
 as$id <- paste("uncoded_studies_", rownames(as), sep = "")
 forrt  <- openxlsx::read.xlsx(red_link, sheet = "FORRT R&R (editable)", startRow = 1)
 forrt <- forrt[-(1:2), ] # exclude labels and "X" column
+
+message("Loaded data")
 
 ## Submissions ------------------------------------------------------
 # ### comment this in to have data from the submission portal downloaded directly into the app; note that some of the code is deprecated and should be replaced by code from soscisubmissions.R
@@ -395,7 +398,10 @@ red$ref_original <- gsub("(.{70,}?)\\s", "\\1\n", red$ref_original) # line break
 
 # WEBSITE TEXT --------------------------------------------------------------
 
-source("website_text.R")
+message("Source text")
+source("website_text.R", local = TRUE) # Evaluate in calling environment, otherwise fails on app start
+
+message("Sourced text")
 
 ## Add custom theme (formatting)
 custom_theme <- bs_theme(
@@ -1129,12 +1135,6 @@ server <- function(input, output) {
 
 
 
-
-
-
-
-
-
   # MODERATORS --------------------------------------------------------------
 
   # Moderator Plot ----------------------------------------------------------
@@ -1271,15 +1271,6 @@ server <- function(input, output) {
     DT::datatable(modtable, options = list(options = list(pageLength = 200, dom = 't'))
                   , rownames = FALSE)
   })
-
-
-
-
-
-
-
-
-
 
 
   # REFERENCE CHECKER -------------------------------------------------------
