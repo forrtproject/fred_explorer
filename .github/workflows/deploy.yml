@@ -23,7 +23,7 @@ jobs:
           warning("Dep identified: ", renv::dependencies()$Package)
           install.packages(renv::dependencies()$Package)
           rsconnect::setAccountInfo(name='lukaswallrich', token='${{secrets.SHINYAPPS_TOKEN}}', secret='${{secrets.SHINYAPPS_SECRET}}')
-          rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE, envManagementR = TRUE)
+          rsconnect::deployApp(appName = 'fred_explorer', appDir = '.', forceUpdate = TRUE)
         shell: Rscript {0}
 
 
