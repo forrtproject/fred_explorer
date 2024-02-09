@@ -1137,78 +1137,48 @@ server <- function(input, output) {
 
   # MODERATORS --------------------------------------------------------------
 
-  # Moderator Plot ----------------------------------------------------------
+  # Reactives for repeated elements -----------------------------------------
 
-  output$flexibleplot <- plotly::renderPlotly({
-    # flexible plot
-    red$ref_original <- gsub("(.{70,}?)\\s", "\\1\n", red$ref_original) # line breaks
+  preprocessed_data <- reactive({
     es <- red
-    mod <- es[, input$moderator]
     es$mod <- es[, input$moderator]
-
-    es <- es[!is.na(es$mod), ]
-
-    if (is.numeric(mod)) {
-      p <- ggplot2::ggplot(data = es, aes(y = es_replication, x = mod, color = ref_original)) + geom_point() + theme_bw() +
-        xlab(input$moderator) +
-        ylab("Replication Effect Size (r)") +
-        geom_smooth(data = es, aes(y = es_replication, x = mod, color = NULL), formula = y ~ x) +
-        labs(color = "Reference") + #  , method = "lm", family = (gaussian(link = "log"))
-        geom_hline(yintercept = 0, linetype = "dashed")
-    } else {
-      p <- ggplot2::ggplot(data = es, aes(y = es_replication, x = fct_rev(mod))) + geom_violin(fill = NA) +  # geom_boxplot(width = .1) +
-        theme_bw() +  # stat_summary(fun.y = mean, geom = "point", shape = 12, size = 7, color = "black", fill = "black") +
-        geom_jitter(data = es, aes(y = es_replication, x = mod, color = ref_original), width = .1) + labs(color = "Reference") +
-        xlab(input$moderator) +
-        ylab("Replication Effect Size (r)")  +  # (levels())
-        geom_hline(yintercept = 0, linetype = "dashed") + # scale_x_discrete(limits = rev(unique(levels(mod)))) +
-        coord_flip()
-    }
-    plotly::ggplotly(p) %>%
-      plotly::config(displayModeBar = FALSE) # %>% # layout(height = 800, width = 900) %>%
-    # layout(xaxis = list(fixedrange = TRUE), yaxis = list(fixedrange = TRUE))
+    es <- es[!is.na(es$mod), !is.na(es$ref_original), ]
+    es$se <- sqrt((1 - abs(es$es_original)^2) / (es$n_original - 2))
+    es
   })
 
+  model_computation <- reactive({
+    es <- preprocessed_data()
+    metafor::rma.mv(yi = es$es_replication, V = es$se^2, random = ~1 | es$ref_original, tdist = TRUE, data = es, mods = ~ mod - 1, method = "ML")
+  })
+
+  # Moderator Plot ----------------------------------------------------------
+
+  output$flexibleplot <- renderPlotly({
+    es <- preprocessed_data()
+    mod <- es$mod
+    p <- ggplot2::ggplot(data = es, aes(y = es_replication, color = ref_original)) +
+      geom_hline(yintercept = 0, linetype = "dashed") + theme_bw() +
+      labs(x = input$moderator, y = "Replication Effect Size (r)", color = "Reference")
+
+    if (is.numeric(mod)) {
+      p <- p + aes(x = mod) + geom_point() + geom_smooth(aes(color = NULL), formula = y ~ x)
+    } else {
+      p <- p + aes(x = fct_rev(mod)) + geom_violin(fill = NA) + geom_jitter(aes(color = ref_original), width = .1) + coord_flip()
+    }
+
+    plotly::ggplotly(p) %>% plotly::config(displayModeBar = FALSE)
+  })
 
   # Moderator Model ---------------------------------------------------------
-
-
-  output$flexiblemoderatormodel <- shiny::renderPrint({
-    es <- red
-    es$mod <- es[, input$moderator]
-    es <- es[!is.na(es$mod), ]
-    es <- es[!is.na(es$ref_original), ]
-    es$se <- sqrt((1-abs(es$es_original)^2)/(es$n_original-2))
-    model <- metafor::rma.mv(yi = es_replication
-                             , V = se^2
-                             , random = ~1 | ref_original
-                             , tdist = TRUE
-                             , data = es
-                             , mods = ~ mod - 1
-                             , method = "ML")
-
-
+  output$flexiblemoderatormodel <- renderPrint({
+    model <- model_computation()
     print(model)
-
   })
 
   # Moderator Text ----------------------------------------------------------
-
-
-  output$flexiblemoderatortext <- shiny::renderText({
-    es <- red
-    es$mod <- es[, input$moderator]
-    es <- es[!is.na(es$mod), ]
-    es <- es[!is.na(es$ref_original), ]
-    es$se <- sqrt((1-abs(es$es_original)^2)/(es$n_original-2))
-    model <- metafor::rma.mv(yi = es_replication
-                             , V = se^2
-                             , random = ~1 | ref_original
-                             , tdist = TRUE
-                             , data = es
-                             , mods = ~ mod
-                             , method = "ML")
-
+  output$flexiblemoderatortext <- renderText({
+    model <- model_computation()
 
     HTML(paste("<br><br>The effect of ", "<b>", input$moderator, "</b>", " on replication effect sizes is ", ifelse(model[["QMp"]] < .05, "", "<b>not</b> ")
                , "significant at the 5% level. Test of moderators: <i>F</i>(", model[["QMdf"]][1], ", ", model[["QMdf"]][2]
@@ -1221,25 +1191,10 @@ server <- function(input, output) {
 
   # Moderator Table ---------------------------------------------------------
 
-
-  output$flexiblemodtable <- DT::renderDT({
-    es <- red
-    # determine moderator from input
-    mod <- es[, input$moderator]
-    es$mod <- es[, input$moderator]
-    es <- es[!is.na(es$mod), ]
-    es <- es[!is.na(es$ref_original), ]
-    es$se <- sqrt((1-abs(es$es_original)^2)/(es$n_original-2))
-
-    # compute model
-    model <- metafor::rma.mv(yi = es_replication
-                             , V = se^2
-                             , random = ~1 | ref_original
-                             , tdist = TRUE
-                             , data = es
-                             , mods = ~ mod - 1
-                             , method = "ML")
-
+    output$flexiblemodtable <- renderDT({
+    es <- preprocessed_data()
+    model <- model_computation()
+    mod <- es$mod
     # check moderator type (factor or metric)
     if (is.numeric(mod)) { # metric
 
@@ -1270,7 +1225,7 @@ server <- function(input, output) {
     # print table
     DT::datatable(modtable, options = list(options = list(pageLength = 200, dom = 't'))
                   , rownames = FALSE)
-  })
+    })
 
 
   # REFERENCE CHECKER -------------------------------------------------------
