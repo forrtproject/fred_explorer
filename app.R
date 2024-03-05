@@ -45,7 +45,7 @@ library(rcrossref) # not needed here but listed so that it gets cited (was used 
 
 # BASIC INFO --------------------------------------------------------------
 
-version <- "Version 0.4.6"
+version <- "Version 0.4.61"
 date <- "09 February, 2024" # enter last update here
 forestplotheight <- "17000px" # make it so that forest plot is readable
 red_link <- "https://osf.io/z5u9b/download"
